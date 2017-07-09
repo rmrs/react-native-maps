@@ -188,12 +188,17 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
 
         final AirMapView view = this;
         
-        Log.e("RUMORS","SAGI: OnMapReady");
-
         map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location){
-                Log.e("RUMORS", "SAGI: " + location);
+                WritableMap event = new WritableNativeMap();
+
+                WritableMap coordinate = new WritableNativeMap();
+                coordinate.putDouble("latitude", location.getLatitude());
+                coordinate.putDouble("longitude", location.getLongitude());
+                event.putMap("coordinate", coordinate);
+      
+                manager.pushEvent(context, view, "onMyLocationChange", event);
             }
         });
 
