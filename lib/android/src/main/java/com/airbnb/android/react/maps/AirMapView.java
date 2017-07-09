@@ -45,6 +45,9 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.VisibleRegion;
 
+import android.util.Log;
+import android.location.Location;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -184,6 +187,15 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
         manager.pushEvent(context, this, "onMapReady", new WritableNativeMap());
 
         final AirMapView view = this;
+        
+        Log.e("RUMORS","SAGI: OnMapReady");
+
+        map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location){
+                Log.e("RUMORS", "SAGI: " + location);
+            }
+        });
 
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
