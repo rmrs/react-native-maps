@@ -57,6 +57,13 @@ id regionAsJSON(MKCoordinateRegion region) {
   }
   return self;
 }
+
+- (void)dealloc {
+  [self removeObserver:self
+            forKeyPath:@"myLocation"
+               context:NULL];
+}
+
 - (id)eventFromCoordinate:(CLLocationCoordinate2D)coordinate {
 
   CGPoint touchPoint = [self.projection pointForCoordinate:coordinate];
@@ -359,7 +366,7 @@ id regionAsJSON(MKCoordinateRegion region) {
                     }
                 };
 
-    self.onMyLocationChange(event);
+    if (self.onMyLocationChange) self.onMyLocationChange(event);
   } else {
     // This message is not for me; pass it on to super.
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
