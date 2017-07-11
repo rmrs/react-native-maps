@@ -206,7 +206,6 @@ id regionAsJSON(MKCoordinateRegion region) {
 
 - (void)didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
   if (!self.onPress) return;
-  self.onMyLocationChange([self eventFromCoordinate:coordinate]);
   self.onPress([self eventFromCoordinate:coordinate]);
 }
 
